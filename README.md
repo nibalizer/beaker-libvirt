@@ -23,3 +23,8 @@ CONFIG:
 # Usage
 
 TBC
+
+
+# Contact
+
+ping nibalizer or petems in #puppet on freenode
