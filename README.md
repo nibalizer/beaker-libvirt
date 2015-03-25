@@ -1,4 +1,4 @@
-# beaker-fog
+# beaker-libvirt
 
 A Plugin for [Beaker](https://github.com/puppetlabs/beaker), to add an additional hypervisor for libvirt.
 
