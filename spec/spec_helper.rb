@@ -89,6 +89,6 @@ def make_hosts preset_opts = {}, amt = 3
      :box => HOST_BOX % name,
      :box_url => HOST_BOX_URL % name }.merge( preset_opts )
      hosts << make_host(name, opts)
-   end
-   hosts
- end
+  end
+  hosts
+end
