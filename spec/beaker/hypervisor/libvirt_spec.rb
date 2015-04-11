@@ -17,7 +17,6 @@ module Beaker
     end
 
     it "can provision a set of hosts" do
-      ::Libvirt.mock!
       allow(File).to receive(:read).with('/home/nibz/sandbox/vagrant_private.key').and_return('Key')
       libvirt.provision
     end
