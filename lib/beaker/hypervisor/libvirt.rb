@@ -24,6 +24,7 @@ module Beaker
         temporary_name = file.path.split('/')[-1]
         host['tempname'] = temporary_name
         host['qcowfile'] = img.path
+        @logger.notify "Using temporary image path #{img.path}"
         @logger.notify "provisioning #{host.name} as #{host['tempname']}"
         FileUtils.cp host['qcow2'], img.path
 
@@ -105,6 +106,7 @@ EOF
         host['password'] = host['password']
         host['ssh']  = {
           :port => 22,
+          :paranoid => false,
           :forward_agent => forward_ssh_agent,
           :keys => host['private_key_file'],
 
@@ -124,6 +126,8 @@ EOF
       @hosts.each do |host|
         `virsh destroy #{host['tempname']}`
         `virsh undefine #{host['tempname']}`
+        @logger.notify "Deleting temporary image path #{host['qcowfile']}"
+        FileUtils.rm host['qcowfile'], :force => true
         FileUtils.rm host['qcowfile'], :force => true
 
       end
