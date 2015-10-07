@@ -98,22 +98,26 @@ EOF
             ip = line.split()[0]
           end
         end
-        forward_ssh_agent = @options[:forward_ssh_agent] || false
+
         # Update host metadata
         host['ip']  = ip
-        host['port'] = 22
         host['user'] = host['user']
         host['password'] = host['password']
-        host['ssh']  = {
-          :port => 22,
-          :paranoid => false,
-          :forward_agent => forward_ssh_agent,
-          :keys => host['private_key_file'],
 
-        }
-        #dom = conn.create_domain_xml(new_dom_xml)
-        #enable root if user is not root
-        enable_root_on_hosts()
+        if host['platform'] !~ /^windows/ || host['is_cygwin']
+          forward_ssh_agent = @options[:forward_ssh_agent] || false
+          host['port'] = 22
+          host['ssh']  = {
+            :port => 22,
+            :paranoid => false,
+            :forward_agent => forward_ssh_agent,
+            :keys => host['private_key_file'],
+
+          }
+          #dom = conn.create_domain_xml(new_dom_xml)
+          #enable root if user is not root
+          enable_root_on_hosts()
+        end
       end
 
     end
